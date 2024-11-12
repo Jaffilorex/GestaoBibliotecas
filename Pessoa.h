@@ -19,8 +19,6 @@ class Pessoa
         string nome;
         int id;
         int livros_emprestados;
-        virtual int max_livros_emprestados;
-        virtual double desconto_multa;
 };
 
 

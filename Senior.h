@@ -11,8 +11,8 @@ class Senior : public Pessoa
     protected:
 
     private:
-        const int max_libros = 20;
-        const bool recebe_desconto = true;
+        static const int MAX_LIVROS_EMPRESTADOS = 20;
+        static const double DESCONTO_MULTA = 7.25;
 };
 
 #endif // SENIOR_H

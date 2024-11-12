@@ -13,6 +13,8 @@ class LeitorComum : public Pessoa
     protected:
 
     private:
+        static const int MAX_LIVROS_EMPRESTADOS = 3;
+        static const double DESCONTO_MULTA = 0;
 
 };
 

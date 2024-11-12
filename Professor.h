@@ -13,8 +13,8 @@ class Professor : public Pessoa
     protected:
 
     private:
-        const int max_libros = 15;
-        const bool recebe_desconto = true;
+        static const int MAX_LIVROS_EMPRESTADOS = 15;
+        static const double DESCONTO_MULTA = 3.5;
 };
 
 #endif // PROFESSOR_H
