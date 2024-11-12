@@ -1,49 +1,34 @@
-// Biblioteca.h (modified)
 #ifndef BIBLIOTECA_H
 #define BIBLIOTECA_H
 
-#include <vector>
-#include "Livro.h"
-#include "Leitor.h"
-#include "Emprestimo.h"
-#include "Multa.h"
+#include <iostream>
+using namespace std;
+#include <list>
+#include <map>
+#include "Pessoa.h"
+#include "Geral.h"
 
-class Biblioteca {
-private:
-    std::vector<Livro*> livros;
-    std::vector<Leitor*> leitores;
-    std::vector<Emprestimo*> emprestimos;
+class Biblioteca
+{
+   // list, vector, map Coleccao_LIVROS;
+   // list, vector, map Coleccao_REQ;
+    public:
+        Biblioteca();
+        virtual ~Biblioteca();
+        bool SaveToFile(string nf);
+        bool LoadFile(string nf);
+        void RelatorioCategoria(string cat);
+        void Prorrogacao_Emprestimos();
+        void Sistema_Notificacoes_Atraso();
+        void Listagem_Livros();
+        bool Add_Leitores(vector _leitores);
+        bool Add_Leitor(Pessoa *P);
 
-public:
-    ~Biblioteca() {
-        for (auto livro : livros) delete livro;
-        for (auto leitor : leitores) delete leitor;
-        for (auto emprestimo : emprestimos) delete emprestimo;
-    }
+    private:
+        vector<Geral*> livros;
+        vector<Leitor*> leitores;
+        vector<Emprestimo*> emprestimos;
 
-    void adicionarLivro(Livro* livro) {
-        livros.push_back(livro);
-    }
-
-    void registrarLeitor(Leitor* leitor) {
-        leitores.push_back(leitor);
-    }
-
-    void realizarEmprestimo(Leitor* leitor, Livro* livro) {
-        Emprestimo* novoEmprestimo = new Emprestimo(leitor, livro);
-        emprestimos.push_back(novoEmprestimo);
-        leitor->adicionarHistorico(livro);
-    }
-
-    void verificarMultas() const {
-        for (auto emprestimo : emprestimos) {
-            int diasAtraso = emprestimo->calcularDiasAtraso();
-            if (diasAtraso > 0) {
-                Multa multa(diasAtraso, emprestimo->getLeitor());
-                multa.mostrarMulta();
-            }
-        }
-    }
 };
 
 #endif // BIBLIOTECA_H
