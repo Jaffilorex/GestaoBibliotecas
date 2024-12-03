@@ -5,8 +5,16 @@
 using namespace std;
 #include <list>
 #include <map>
+#include <vector>
+#include <typeinfo>
+#include <fstream>
 #include "Pessoa.h"
 #include "Geral.h"
+#include "Emprestimo.h"
+#include "LivroCientifico.h"
+#include "LivroFiccao.h"
+#include "Revista.h"
+#include "Jornal.h"
 
 class Biblioteca
 {
@@ -17,16 +25,21 @@ class Biblioteca
         virtual ~Biblioteca();
         bool SaveToFile(string nf);
         bool LoadFile(string nf);
-        void RelatorioCategoria(string cat);
+        void RelatorioLivrosCategoria(string cat);
         void Prorrogacao_Emprestimos();
         void Sistema_Notificacoes_Atraso();
         void Listagem_Livros();
-        bool Add_Leitores(vector _leitores);
+        bool Add_Leitores(vector<Pessoa*>* _leitores);
         bool Add_Leitor(Pessoa *P);
+        bool Add_Emprestimo(Emprestimo *E);
+        bool Add_Livro(Geral *G);
+        void RelatorioMultasPendentes();
+        void EditarInformacoesLeitores(int ID_leitor);
+        void ExtendLoanForReader(int ID_leitor);
 
     private:
         vector<Geral*> livros;
-        vector<Leitor*> leitores;
+        vector<Pessoa*> leitores;
         vector<Emprestimo*> emprestimos;
 
 };

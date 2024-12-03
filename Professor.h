@@ -8,13 +8,23 @@ class Professor : public Pessoa
 {
     public:
         Professor();
+        Professor(int id, string nome);
         virtual ~Professor();
+        int getPrazoDevolucao(string tipo_livro) override;
+        double getDescontoMulta();
+        int getLimiteReservas(); // Metodo polimorfico
+        int getPrioridadeReserva(string tipo_livro); // Metodo polimorfico
+        string tipo() override;
+        bool canExtendLoan() override;
+        void sendNotification() override;
+        double getMultasPendentes() override;
+        void edit_informacoes() override;
 
     protected:
 
     private:
-        static const int MAX_LIVROS_EMPRESTADOS = 15;
-        static const double DESCONTO_MULTA = 3.5;
+        int max_libros = 15;
+        double calcularMultasProfessor();
 };
 
 #endif // PROFESSOR_H

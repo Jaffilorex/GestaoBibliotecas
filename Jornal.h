@@ -1,20 +1,27 @@
 #ifndef JORNAL_H
 #define JORNAL_H
 
-#include <Geral.h>
+#include "Geral.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 
 class Jornal : public Geral
 {
     public:
+        Jornal();
         Jornal(int, string, string, int, string);
         virtual ~Jornal();
-        string tipo();
-        void Show();
+        string getTipo() override;
+        void Show() override;
+        void editarInformacoes() override;
 
     protected:
 
     private:
+        const string tipo = "Jornal";
         string data_publicacao;
 };
 

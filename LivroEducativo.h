@@ -2,19 +2,26 @@
 #define LIVROEDUCATIVO_H
 
 #include "Geral.h"
+#include <string>
+#include <iostream>
 
+using namespace std;
 
-class LivroEducativo
+class LivroEducativo : public Geral
 {
     public:
         LivroEducativo();
+        LivroEducativo(int id, string titulo, string autor, int num_pags, int grau_escolaridade);
         virtual ~LivroEducativo();
-        string tipo();
-        void Show();
+        string getTipo() override;
+        void Show() override;
+        void editarInformacoes() override;
+        void setGrauEscolaridade(int n);
 
     protected:
 
     private:
+        const string tipo = "Educativo";
         int grau_escolaridade;
 };
 

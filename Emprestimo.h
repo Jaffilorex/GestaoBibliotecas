@@ -4,23 +4,31 @@
 using namespace std;
 
 #include "Pessoa.h"
-#include "Livro.h"
+#include "Geral.h"
 #include <ctime>
 
 
 class Emprestimo
 {
     public:
-        Emprestimo(Pessoa, Livro);
+        Emprestimo(Pessoa* _leitor, Geral* _livro, time_t data_emprestimo);
         virtual ~Emprestimo();
+        void mostrarDetalhes();
+        void registrarDevolucao(int diasEmPosse);
+        double calcularMulta(double valor_base_dia);
+        bool extendLoan();
+        Pessoa* getLeitor();
+        bool isOverdue();
 
     protected:
 
     private:
-        Pessoa *leitor;
-        Livro * livro;
+        Geral* livro;
+        Pessoa* leitor;
+        int prazo_devolucao;
+        bool devolvido;
+        int dias_atraso;
         time_t data_emprestimo;
-        time_t data_devolucao;
 };
 
 #endif // EMPRESTIMO_H

@@ -2,6 +2,7 @@
 #define GERAL_H
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 class Geral
@@ -11,15 +12,19 @@ class Geral
         virtual ~Geral();
         //virtual string QuemEs() = 0;
         virtual void Show();
+        virtual void editarInformacoes();
+        string getTitulo();
+        string getAutor();
+        int getNumPags();
+        int getID();
+        void setNumPags(int n);
+        virtual string getTipo() = 0;
     private:
-        string get_titulo();
-        string get_autor();
-        int get_num_pags();
-    protected:
         int id;
         string titulo;
         string autor;
         int num_pags;
+    protected:
 };
 
 #endif // GERAL_H
