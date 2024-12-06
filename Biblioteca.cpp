@@ -78,12 +78,12 @@ bool Biblioteca::LoadFile(string nf)
                 } else if (type == 'J') {
                     livro = new Jornal();
                 } else {
-                    continue; // Tipo inv·lido
+                    continue; // Tipo inv√°lido
                 }
 
                 // Ler campos
                 ss >> id;
-                ss.ignore(); // Ignorar tabulaÁ„o
+                ss.ignore(); // Ignorar tabula√ß√£o
                 getline(ss, titulo, '\t');
                 getline(ss, autor, '\t');
                 ss >> numPaginas;
@@ -93,7 +93,7 @@ bool Biblioteca::LoadFile(string nf)
                     livro->setID(id);
                     livro->setTitulo(titulo);
                     livro->setAutor(autor);
-                    livro->setNumPaginas(numPaginas);
+                    livro->setNumPags(numPaginas);
                     Add_Livro(livro);
                 }
             }
@@ -116,12 +116,12 @@ bool Biblioteca::LoadFile(string nf)
                 } else if (type == 'C') {
                     leitor = new LeitorComum();
                 } else {
-                    continue; // Tipo inv·lido
+                    continue; // Tipo inv√°lido
                 }
 
                 // Ler campos
                 ss >> id;
-                ss.ignore(); // Ignorar tabulaÁ„o
+                ss.ignore(); // Ignorar tabula√ß√£o
                 getline(ss, nome, '\t');
 
                 // Atribuir valores ao objeto leitor
@@ -137,7 +137,7 @@ bool Biblioteca::LoadFile(string nf)
                 int livro_ID, leitor_ID;
                 time_t prazoDevolucao;
 
-                // Ler os dados do emprÈstimo
+                // Ler os dados do empr√©stimo
                 ss >> livro_ID >> leitor_ID >> prazoDevolucao;
 
                 Geral* livro = nullptr;
@@ -158,7 +158,7 @@ bool Biblioteca::LoadFile(string nf)
                     }
                 }
 
-                // Criar emprÈstimo se os dados forem v·lidos
+                // Criar empr√©stimo se os dados forem v√°lidos
                 if (livro && leitor) {
                     Emprestimo* e = new Emprestimo(leitor, livro, prazoDevolucao);
                     Add_Emprestimo(e);
@@ -365,7 +365,7 @@ void Biblioteca::registrarLivro()
             novoLivro = new Jornal();
             break;
         default:
-            cout << "OpciÛn inv·lida. No se creÛ el libro.\n";
+            cout << "Opci√≥n inv√°lida. No se cre√≥ el libro.\n";
             return;
     }
 
@@ -389,13 +389,13 @@ void Biblioteca::registrarLivro()
         cout << "Ingrese el numero de paginas del libro: ";
         cin >> numPags;
 
-        // Establece los datos b·sicos en el objeto `novoLivro`
+        // Establece los datos b√°sicos en el objeto `novoLivro`
         novoLivro->setID(id);
         novoLivro->setTitulo(titulo);
         novoLivro->setAutor(autor);
         novoLivro->setNumPags(numPags);
 
-        // AÒade el libro a la lista de la biblioteca
+        // A√±ade el libro a la lista de la biblioteca
         Add_Livro(novoLivro);
         cout << "Libro registrado exitosamente!\n";
     }
@@ -428,7 +428,7 @@ void Biblioteca::registrarLeitor()
             novoLeitor = new Senior();
             break;
         default:
-            cout << "OpciÛn inv·lida. No se creÛ el Leitor.\n";
+            cout << "Opci√≥n inv√°lida. No se cre√≥ el Leitor.\n";
             return;
     }
 
@@ -448,11 +448,11 @@ void Biblioteca::registrarLeitor()
         cout << "Ingrese el nome del leitor: ";
         getline(cin, nome);
 
-        // Establece los datos b·sicos en el objeto `novoLivro`
+        // Establece los datos b√°sicos en el objeto `novoLivro`
         novoLeitor->setID(id);
         novoLeitor->setNome(nome);
 
-        // AÒade el libro a la lista de la biblioteca
+        // A√±ade el libro a la lista de la biblioteca
         Add_Leitor(novoLeitor);
         cout << "Leitor registrado exitosamente!\n";
     }
@@ -490,7 +490,7 @@ void Biblioteca::reservarLivro(int id_livro, Pessoa* leitor)
 {
     Geral* livro = buscarLivro(id_livro);
     if (!livro) {
-        cout << "Livro n„o encontrado.\n";
+        cout << "Livro n√£o encontrado.\n";
         return;
     }
     if(livro->isEmprestado()){
@@ -512,7 +512,7 @@ Emprestimo* Biblioteca::getEmprestimoPorLivro(int id_livro) {
             return emprestimo;
         }
     }
-    return nullptr; // Retorna nullptr si no encuentra un prÈstamo con ese libro
+    return nullptr; // Retorna nullptr si no encuentra un pr√©stamo con ese libro
 }
 
 void Biblioteca::devolverLivro(int id_livro, Pessoa* leitor)
@@ -529,13 +529,13 @@ void Biblioteca::devolverLivro(int id_livro, Pessoa* leitor)
         return;
     }
 
-    // Verificar si el prÈstamo pertenece al lector actual
+    // Verificar si el pr√©stamo pertenece al lector actual
     if (emprestimo->getLeitor() != leitor) {
         cout << "O leitor informado nao corresponde ao emprestimo.\n";
         return;
     }
 
-    // Verificar se o emprÈstimo j· passou do prazo
+    // Verificar se o empr√©stimo j√° passou do prazo
     if (emprestimo->isOverdue()) {
         double multa = emprestimo->getDiasAtraso() * leitor->getDescontoMulta(); // Aplica desconto dependendo do tipo de leitor
         leitor->registrarMulta(multa);
@@ -544,9 +544,9 @@ void Biblioteca::devolverLivro(int id_livro, Pessoa* leitor)
         cout << "Livro devolvido no prazo.\n";
     }
 
-    // Atualizar status do livro e do emprÈstimo
+    // Atualizar status do livro e do empr√©stimo
     livro->setEmprestado(false);
-    removerEmprestimo(emprestimo); // MÈtodo para remover emprÈstimo da lista
+    removerEmprestimo(emprestimo); // M√©todo para remover empr√©stimo da lista
     cout << "Devolucao concluida.\n";
 }
 
@@ -572,9 +572,9 @@ void Biblioteca::realizarEmprestimo()
         return;
     }
 
-    // Verificar que el libro no estÈ prestado
+    // Verificar que el libro no est√© prestado
     if (livro->isEmprestado()) {
-        cout << "El libro ya est· prestado. øDesea reservarlo? (s/n): ";
+        cout << "El libro ya est√° prestado. ¬øDesea reservarlo? (s/n): ";
         char respuesta;
         cin >> respuesta;
         if (respuesta == 's' || respuesta == 'S') {
@@ -585,19 +585,19 @@ void Biblioteca::realizarEmprestimo()
 
     // Verificar restricciones del lector
     if (leitor->getLivrosEmprestados() >= leitor->getLimiteReservas()) {
-        cout << "El lector ya alcanzÛ su lÌmite de libros prestados.\n";
+        cout << "El lector ya alcanz√≥ su l√≠mite de libros prestados.\n";
         return;
     }
 
-    // Calcular la fecha de devoluciÛn seg˙n el tipo de lector y libro
+    // Calcular la fecha de devoluci√≥n seg√∫n el tipo de lector y libro
     string tipoLivro = livro->getTipo();
     int diasPrazo = leitor->getPrazoDevolucao(tipoLivro);
 
-    // Calcular la fecha de devoluciÛn
+    // Calcular la fecha de devoluci√≥n
     time_t now = time(nullptr);
-    time_t prazoDevolucao = now + (diasPrazo * 24 * 60 * 60); // Sumar dÌas en segundos
+    time_t prazoDevolucao = now + (diasPrazo * 24 * 60 * 60); // Sumar d√≠as en segundos
 
-    // Registrar el prÈstamo
+    // Registrar el pr√©stamo
     Emprestimo* emprestimo = new Emprestimo(leitor, livro, prazoDevolucao);
     Add_Emprestimo(emprestimo);
 
@@ -605,9 +605,9 @@ void Biblioteca::realizarEmprestimo()
     livro->setEmprestado(true);
     leitor->registrarEmprestimo(tipoLivro, livro->getTitulo());
 
-    // Mostrar informaciÛn de la fecha
+    // Mostrar informaci√≥n de la fecha
     tm* prazo_tm = localtime(&prazoDevolucao);
-    cout << "PrÈstamo registrado. Fecha de devoluciÛn: " << put_time(prazo_tm, "%d-%m-%Y %H:%M:%S") << "\n";
+    cout << "Pr√©stamo registrado. Fecha de devoluci√≥n: " << put_time(prazo_tm, "%d-%m-%Y %H:%M:%S") << "\n";
 
     cout << "Emprestimo realizado con exito!" << endl;
 }
@@ -616,9 +616,9 @@ void Biblioteca::removerEmprestimo(Emprestimo* e)
 {
     for (int i = 0; i < emprestimos.size(); ++i) {
         if (emprestimos[i] == e) {
-            delete emprestimos[i]; // Liberar memÛria do emprÈstimo
+            delete emprestimos[i]; // Liberar mem√≥ria do empr√©stimo
             emprestimos.erase(emprestimos.begin() + i); // Remover do vetor
-            break; // Sair do loop depois de encontrar o emprÈstimo
+            break; // Sair do loop depois de encontrar o empr√©stimo
         }
     }
 }
@@ -627,7 +627,7 @@ void Biblioteca::listarEmprestimosPorTipo() const
 {
     map<string, vector<Emprestimo*>> emprestimos_por_tipo;
 
-    // Percorrer a lista de emprÈstimos
+    // Percorrer a lista de empr√©stimos
     for (const auto& emprestimo : emprestimos) {
         string tipo_livro = emprestimo->getLivro()->getTipo();
         emprestimos_por_tipo[tipo_livro].push_back(emprestimo);
@@ -638,7 +638,7 @@ void Biblioteca::listarEmprestimosPorTipo() const
         cout << "Tipo de livro: " << par.first << "\n";
         for (const auto& emprestimo : par.second) {
             cout << "\t";
-            emprestimo->mostrarDetalhes(); // Exibe os detalhes do emprÈstimo
+            emprestimo->mostrarDetalhes(); // Exibe os detalhes do empr√©stimo
         }
     }
 
